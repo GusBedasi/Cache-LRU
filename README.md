@@ -12,11 +12,26 @@ Cache LRU is a cache evict policy to delete the Least Recently Used cache entry,
 
 ## Unit tests
 
-In progress
+```
+go test ./... -cover
+?       cache-lru/cmd   [no test files]
+ok      cache-lru/cache (cached)        coverage: 100.0% of statements
+```
 
 ## Benchmark
 
-In progress
+```
+goos: windows
+goarch: amd64
+pkg: cache-lru/cache
+cpu: 11th Gen Intel(R) Core(TM) i5-11400H @ 2.70GHz
+=== RUN   Benchmark
+Benchmark
+Benchmark-12
+1000000000             0 B/op          0 allocs/op
+PASS
+ok      cache-lru/cache 2.854s
+```
 
 ## Disclaimer
 

@@ -1,6 +1,6 @@
 package cache
 
-type cache interface {
+type Cache interface {
 	Get(key int) int
 	Set(key, value int)
 }

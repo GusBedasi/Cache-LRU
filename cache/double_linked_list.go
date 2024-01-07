@@ -1,5 +1,11 @@
 package cache
 
+type node struct {
+	Key, Value int
+	Prev       *node
+	Next       *node
+}
+
 type linkedList struct {
 	Head *node
 	Tail *node
@@ -24,8 +30,11 @@ func (ll *linkedList) insert(newNode *node) {
 func (ll *linkedList) remove(n *node) {
 	if ll.Head == n {
 		target := ll.Head
-		ll.Head = target.Next
-		ll.Head.Prev = nil
+
+		if target.Next != nil {
+			ll.Head = target.Next
+			ll.Head.Prev = nil
+		}
 
 		target.Prev = nil
 		target.Next = nil
