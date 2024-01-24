@@ -1,23 +1,62 @@
 package cache
 
-import "testing"
+import (
+	"math/rand"
+	"testing"
+)
 
-func Benchmark(b *testing.B) {
-	cacheLRU := CreateCacheLRU(3)
+func BenchmarkCacheLRU(b *testing.B) {
+	scenarios := []struct {
+		name      string
+		cacheSize int
+	}{
+		{
+			name:      "100",
+			cacheSize: 100,
+		},
+		{
+			name:      "1000",
+			cacheSize: 1000,
+		},
+		{
+			name:      "10000",
+			cacheSize: 10000,
+		},
+		{
+			name:      "100000",
+			cacheSize: 100000,
+		},
+		{
+			name:      "1000000",
+			cacheSize: 1000000,
+		},
+	}
 
-	cacheLRU.Set(1, 1)
-	cacheLRU.Set(2, 2)
-	cacheLRU.Set(3, 3)
+	for _, scenario := range scenarios {
+		b.Run(scenario.name, func(b *testing.B) {
+			// Set up your cache with initial values as needed for the benchmark
+			cacheLRU := CreateCacheLRU(3)
 
-	cacheLRU.Get(2)
-	cacheLRU.Get(2)
+			// Fill cache
+			fillCache(cacheLRU)
 
-	cacheLRU.Get(3)
+			// Reset the benchmark timer after setup
+			b.ResetTimer()
 
-	cacheLRU.Set(4, 4)
+			var result int
 
-	cacheLRU.Get(1)
-	cacheLRU.Get(4)
+			for i := 0; i < b.N; i++ {
+				result = cacheLRU.Get(rand.Intn(cacheLRU.capacity))
+				cacheLRU.Set(rand.Intn(cacheLRU.capacity), rand.Intn(cacheLRU.capacity))
+			}
 
-	cacheLRU.Get(5)
+			_ = result
+		})
+	}
+}
+
+func fillCache(cache *CacheLRU) {
+	for i := 0; i <= cache.capacity; i++ {
+		cache.Set(i, i)
+	}
 }
