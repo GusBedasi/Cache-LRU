@@ -31,6 +31,7 @@ func (c *CacheLRU) Get(key int) int {
 	}
 }
 
+// improve performance
 func (c *CacheLRU) Set(key, value int) {
 	if c.used == c.capacity {
 		//Least recently used
