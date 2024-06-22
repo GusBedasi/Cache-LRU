@@ -5,6 +5,7 @@ import (
 	"fmt"
 )
 
+// calling for integration tests
 func main() {
 	cacheLRU := cache.CreateCacheLRU(3)
 
