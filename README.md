@@ -4,6 +4,7 @@
 
 Cache LRU is a cache evict policy to delete the Least Recently Used cache entry, used when the cache is at the maximun capacity and we're trying to add a new entry.
 
+This repository has release-drafter automation now.
 
 ![cache-lru-idea](./assets/cache-lru-idea)
 
